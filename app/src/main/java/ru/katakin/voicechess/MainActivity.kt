@@ -13,9 +13,19 @@ class MainActivity : AppCompatActivity() {
 
         main_toggleswitch_user.setCheckedPosition(0)
 
+        main_button_settings.setOnClickListener {
+            val dialogFragment =
+                supportFragmentManager.findFragmentByTag(SettingsDialogFragment.TAG) as? SettingsDialogFragment
+                    ?: SettingsDialogFragment()
+            dialogFragment.show(supportFragmentManager, SettingsDialogFragment.TAG)
+        }
+
         main_button_start_game.setOnClickListener {
             val intent = Intent(this, ChessActivity::class.java)
-            intent.putExtra("user", if (main_toggleswitch_user.getCheckedPosition() == 0) "white" else "black")
+            intent.putExtra(
+                "user",
+                if (main_toggleswitch_user.getCheckedPosition() == 0) "white" else "black"
+            )
             startActivity(intent)
         }
     }

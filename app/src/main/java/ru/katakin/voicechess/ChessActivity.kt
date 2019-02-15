@@ -49,7 +49,7 @@ class ChessActivity : AppCompatActivity(), WebViewJavaScriptApi.Delegate {
         Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("http://avlek.ykt.ru:8089/serverApi/")
+            .baseUrl(Global.SERVER_URL)
             .client(okHttpClient)
             .build()
     }
@@ -75,7 +75,7 @@ class ChessActivity : AppCompatActivity(), WebViewJavaScriptApi.Delegate {
         chess_webview_site.settings.javaScriptEnabled = true
         chess_webview_site.addJavascriptInterface(object : WebViewJavaScriptApi(this) {}, "Android")
         chess_webview_site.webViewClient = object : WebViewClient() {}
-        chess_webview_site.loadUrl("http://ptflp.ykt.ru/")
+        chess_webview_site.loadUrl(Global.WEBVIEW_URL)
 
         textToSpeech = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { status ->
             if (status != TextToSpeech.ERROR) {
