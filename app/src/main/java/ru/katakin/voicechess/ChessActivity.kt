@@ -108,7 +108,7 @@ class ChessActivity : AppCompatActivity(), WebViewJavaScriptApi.Delegate {
             }.show()
     }
 
-    override fun getMessage(paramsJsonObj: String) {
+    override fun postMessage(paramsJsonObj: String) {
         val jsonObject = JsonParser().parse(paramsJsonObj).asJsonObject
         val text = jsonObject.get("text")?.asString
         if (!text.isNullOrBlank()) {
@@ -122,7 +122,7 @@ class ChessActivity : AppCompatActivity(), WebViewJavaScriptApi.Delegate {
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale("ru", "RU"))
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Куда будем ходить?")
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT)
@@ -141,8 +141,8 @@ class ChessActivity : AppCompatActivity(), WebViewJavaScriptApi.Delegate {
                 .doAfterTerminate { chess_container_progress.visibility = View.GONE }
                 .subscribe(
                     {
-                        startVoiceOutput(it.string())
-                        Toast.makeText(applicationContext, "Success: ${it.string()}", Toast.LENGTH_SHORT).show()
+                        val message = it.string()
+                        Toast.makeText(applicationContext, "Success: $message", Toast.LENGTH_SHORT).show()
                     },
                     {
                         Toast.makeText(applicationContext, "Error: $it", Toast.LENGTH_SHORT).show()

@@ -5,11 +5,11 @@ import android.webkit.JavascriptInterface
 open class WebViewJavaScriptApi(private val delegate: Delegate?) {
 
     interface Delegate {
-        fun getMessage(paramsJsonObj: String)
+        fun postMessage(paramsJsonObj: String)
     }
 
     @JavascriptInterface
-    fun getMessage(paramsJsonObj: String) {
-        delegate?.getMessage(paramsJsonObj)
+    fun postMessage(paramsJsonObj: String) {
+        delegate?.postMessage(paramsJsonObj)
     }
 }
